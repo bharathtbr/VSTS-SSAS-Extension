@@ -43,7 +43,8 @@ try {
     $AsDBFilePath = Get-VstsInput -Name AsDBFilePath -Require
     $ServerName = Get-VstsInput -Name ServerName -Require
     $DatabaseName = Get-VstsInput -Name DatabaseName -Require
-
+	$DwDBname =  Get-VstsInput -Name DWDatabaseName -Require
+	$DwServerName = Get-VstsInput -Name DWServerName -Require
 	#Advanced group
 	$TransactionalDeployment = Get-VstsInput -Name TransactionalDeployment -Require
 	$PartitionDeployment = Get-VstsInput -Name PartitionDeployment -Require
@@ -112,8 +113,9 @@ try {
       # if module is not loaded
       Import-Module "SqlServer" -DisableNameChecking
     }
-  } else {
-    Write-Host "##vso[task.logissue type=error;]SqlServer Powershell module not installed"
+  }
+  else {
+    Write-Host "##vso[task.logissue type=warning;]SqlServer Powershell module not installed"
   }
 
 	if([System.Convert]::ToBoolean($ConfigurationSettingsDeployment)) {		
@@ -132,8 +134,10 @@ try {
 
 	$DeploymentOptions = "$path\$modelName.deploymentoptions"
 	$DeploymentTargets = "$path\$modelName.deploymenttargets"
+	$DeploymentConfigPath= "$path\$modelName.configsettings"
 
 	$SsasDBconnection = "DataSource=$ServerName;Timeout=0"
+	$DwDbConntring = "Provider=SQLNCLI11.1;Data Source=$DwServerName;Integrated Security=SSPI;Initial Catalog=$DwDBname"
 
 	[System.Reflection.Assembly]::LoadWithPartialName("Microsoft.AnalysisServices") | Out-Null;
 	$server = New-Object Microsoft.AnalysisServices.Server
@@ -154,7 +158,15 @@ try {
 	$node.ConnectionString = $SsasDBconnection
 	$xml.Save($DeploymentTargets)
 	# End Edit DeploymentTargets file
-
+	
+	# Edit DeploymentConfig file
+	$xml = [xml](Get-Content $DeploymentConfigPath)
+	$xml.Data.Course.Subject
+	$node = $xml.ConfigurationSettings.Database.DataSources.DataSource
+	$node.ConnectionString = $DwDbConntring
+	$xml.Save($DeploymentConfigPath)
+	# End Edit DeploymentConfig file
+	
 	# Edit DeploymentOptions file
 	$xml = [xml](Get-Content $DeploymentOptions)
 	$xml.Data.Course.Subject

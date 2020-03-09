@@ -1,5 +1,5 @@
 ﻿{
-    "id": "2920A185-2ADE-4CC2-903E-6AE1FA3B7CEE",
+    "id": "ac15de35-e92a-4fdb-b699-27c2430b89ec",
     "name": "DeploySsas",
     "friendlyName": "SSAS Deploy",
     "description": "Deploy SQL Server Analysis Services Project .xmla file using Invoke-ASCmd",
@@ -17,7 +17,7 @@
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 7
+        "Patch": 8
     },
     "demands": [],
     "minimumAgentVersion": "1.95.0",
@@ -47,6 +47,20 @@
             "name": "DatabaseName",
             "type": "string",
             "label": "Name of the SSAS database",
+            "defaultValue": "",
+            "required": true
+        },
+		{
+            "name": "DWServerName",
+            "type": "string",
+            "label": "Name of the DWH Server",
+            "defaultValue": "",
+            "required": true
+        },
+        {
+            "name": "DWDatabaseName",
+            "type": "string",
+            "label": "Name of the DWH database",
             "defaultValue": "",
             "required": true
         },

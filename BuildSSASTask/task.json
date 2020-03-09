@@ -1,5 +1,5 @@
 ﻿{
-  "id": "6FC422C6-F77E-4EBE-B124-D008BA47F4D0",
+  "id": "c01d8787-ec82-4f58-80b0-6c0df3a0563e",
   "name": "BuildSsas",
   "friendlyName": "SSAS Build",
   "description": "Build SQL Server Analysis Services Project (Multi dimensional only) into .asdatabase file using devenv.com",

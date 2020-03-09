@@ -1,13 +1,13 @@
 {
     "manifestVersion": 1,
     "id": "VSTS-SSAS",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "name": "SSAS Build & Deploy",
     "scopes": [ "vso.work", "vso.work_write" ],
     "description": "Extension with Continuous Integration support for SSAS",
-    "baseUri": "https://github.com/avdbrink",
-    "publisher": "avdbrink",
-    "public": true,
+    "baseUri": "https://github.com/bharathtbr",
+    "publisher": "bharathtbr",
+    "public": false,
     "icons": {
         "default": "images/logo.png"
     },
